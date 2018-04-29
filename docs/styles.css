@@ -76,6 +76,10 @@ a {
     min-height: 2em;
 }
 
+#rsvp{
+    margin-bottom: 4em;
+}
+
 /* columns */
 
 .columns:after{
@@ -103,7 +107,7 @@ a {
     margin-bottom:1em;
 }
 button{
-    background-color: #eee; /* Green */
+    background-color: #eee;
     border: none;
     color: #333;
     padding: 0.5em 1em;
@@ -116,9 +120,14 @@ textarea,button{
     border-radius: 10px;
     font-family: Lato;
 }
+button.done{
+    color: #008000;
+}
+button.error{
+    color: #800000;
+}
 
 *:focus,textarea:active,textarea:hover,button:hover{
-    /* outline-color: #ccc; */
     outline: none;
     box-shadow: 0 0 0 2pt #ccc;
 }

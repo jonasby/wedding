@@ -45,42 +45,93 @@
             <p>We'd be delighted if you could join us to celebrate our special day.</p>
             <p>We promise bubbles, treats and laughter. To help us get ready, please let us know whether you can make it, and tell us your preference for the wedding breakfast.</p>
             <p>Please enter your message in the box and hit the submit button; it will send Simone and Jon an email. Where there is a slash between two options, please write your choice of one or the other in your message.</p>
-            <form action="/" method="POST">
-                <div class="columns">
-                    <div class="three-column menu box">
-                        <h4>Meaty</h4>
-                        <p>Salat</p>
-                        <p class="little">Salad</p>
-                        <p>Tafelspitz / Rehrücken</p>
-                        <p class="little">High-welfare Veal / Venison</p>
-                        <p>Dreierlei</p>
-                        <p class="little">Ménage à trois</p>
-                    </div>
-                    <div class="three-column menu box">
-                        <h4>Fishy</h4>
-                        <p>Salat / Risotto</p>
-                        <p class="little">Salad / Risotto</p>
-                        <p>Fisch der Saison</p>
-                        <p class="little">Catch of the day</p>
-                        <p>Dreierlei</p>
-                        <p class="little">Ménage à trois</p>
-                    </div>
-                    <div class="three-column third-column menu box">
-                        <h4>Vege</h4>
-                        <p>Salat / Risotto</p>
-                        <p class="little">Salad / Risotto</p>
-                        <p>Spinat-Käse-Knödel</p>
-                        <p class="little">Spinach and cheese dumplings</p>
-                        <p>Dreierlei</p>
-                        <p class="little">Ménage à trois</p>
-                    </div>
+            <div class="columns">
+                <div class="three-column menu box">
+                    <h4>Meaty</h4>
+                    <p>Salat</p>
+                    <p class="little">Salad</p>
+                    <p>Tafelspitz / Rehrücken</p>
+                    <p class="little">High-welfare Veal / Venison</p>
+                    <p>Dreierlei</p>
+                    <p class="little">Ménage à trois</p>
                 </div>
-                <div>
-                    <textarea class="textarea" placeholder="e.g. We are coming to the wedding! We'd both like the fish please, one with the risotto and one with the salad. Can't wait! Simone and Jon"></textarea>
+                <div class="three-column menu box">
+                    <h4>Fishy</h4>
+                    <p>Salat / Risotto</p>
+                    <p class="little">Salad / Risotto</p>
+                    <p>Fisch der Saison</p>
+                    <p class="little">Catch of the day</p>
+                    <p>Dreierlei</p>
+                    <p class="little">Ménage à trois</p>
+                </div>
+                <div class="three-column third-column menu box">
+                    <h4>Vege</h4>
+                    <p>Salat / Risotto</p>
+                    <p class="little">Salad / Risotto</p>
+                    <p>Spinat-Käse-Knödel</p>
+                    <p class="little">Spinach and cheese dumplings</p>
+                    <p>Dreierlei</p>
+                    <p class="little">Ménage à trois</p>
+                </div>
+            </div>
+            <form id="rsvp">
+                <textarea class="textarea" name="content" placeholder="e.g. We are coming to the wedding! We'd both like the fish please, one with the risotto and one with the salad. Can't wait! Simone and Jon"></textarea>
+                <br/>
+                <button id="submit">Submit</button>
+                <br/>
+                <p id="rsvp-spinner" style="display:none">
+                    <img src="Infinity-3s-49px.svg" />
+                </p>
+                <p id="rsvp-done" style="display:none">
+                    <img src="tick.png" />
                     <br/>
-                    <button>Submit</button>
-                </div>
+                    Thanks!
+                </p>
+                <p id="rsvp-error" style="display:none">
+                    Oops! Something went wrong. I don't suppose you could email your reply manually? To 
+                    <a href="mailto:me@jonasby.com">me@jonasby.com</a>
+                </p>
             </form>
+            <script>
+                var loading = function (){
+                    $("#submit").attr("disabled", true);
+                    $("#submit").text("Sending...");
+                    $("#rsvp-spinner").show();
+                };
+
+                var success = function(){
+                    $("#rsvp-spinner").hide();
+                    $("#submit").text("Done");
+                    $("#submit").addClass("done");
+                    $("#rsvp-done").show();
+                };
+
+                var failure = function (){
+                    $("#rsvp-spinner").hide();
+                    $("#submit").text("Uh oh");
+                    $("#submit").addClass("error");
+                    $("#rsvp-error").show();
+                };
+
+                $(document).ready(function (){
+                    $("#rsvp").submit(function(e){
+                        e.preventDefault();
+                        
+                        loading();
+                        
+                        // setTimeout(function(){
+                        //     failure();
+                        // }, 1000);
+                        $.ajax({
+                            url: 'https://young-reaches-41764.herokuapp.com/mail',
+                            type: 'post',
+                            data: $('#rsvp').serialize(),
+                            success: success,
+                            error: error
+                        });
+                    });
+                });
+            </script>
             <a class="secondary infolink" data-target="#munich" href="">More</a>
         </div>
 
