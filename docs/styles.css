@@ -180,7 +180,9 @@ button.error{
     h2{
         font-size: 52px;
     }
-
+    .columns{
+        margin-top:1em;
+    }
     .three-column,.third-column {
         float:none;
         margin: 0 auto;
