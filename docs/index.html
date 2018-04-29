@@ -185,13 +185,13 @@
         </div>
 
 
-        <div class="gap3">
+        <div class="gap" id="gap3">
         </div>
         <script>
             var windowHeight = window.innerHeight;
             var contentHeight = document.querySelector("#munich").clientHeight;
             var gapRequired = Math.max(0, windowHeight - contentHeight);
-            var gapElement = document.querySelector(".gap3");
+            var gapElement = document.querySelector("#gap3");
             gapElement.style.height = gapRequired;
         </script>
         

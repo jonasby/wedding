@@ -144,20 +144,43 @@ button.error{
 
 /* mobile etc */
 
-@media (max-width: 500px){
+@media (max-width: 810px){
     body{
-        margin-top: 1em;
+        padding:1em 0.1em;
+    }
+    .slim{
+        width: auto;
     }
     .box {
-        width: 340px;
         padding: 10px;
     }
     #title p {
         margin: 0.1em;
     }
+    h2{
+        font-size: 52px;
+    }
 
     .three-column,.third-column {
         float:none;
-        margin: 1em;
+        margin: 0 auto;
+        margin-bottom:1em;
+        width: auto;
+    }
+    .textarea{
+        height: 6em;
+        width: 100%;
+    }
+    #gap3 {
+        min-height: 100px;
+    }
+    .heading, h2{
+        font-size: 56px;
+    }
+}
+
+@media (max-width: 320px){
+    .heading, h2{
+        font-size: 50px;
     }
 }
