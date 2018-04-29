@@ -132,6 +132,10 @@ button.error{
     box-shadow: 0 0 0 2pt #ccc;
 }
 
+.red-border {
+    border-color: #800000;
+}
+
 
 /* mobile etc */
 

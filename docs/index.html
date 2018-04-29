@@ -75,7 +75,7 @@
                 </div>
             </div>
             <form id="rsvp">
-                <textarea class="textarea" name="content" placeholder="e.g. We are coming to the wedding! We'd both like the fish please, one with the risotto and one with the salad. Can't wait! Simone and Jon"></textarea>
+                <textarea class="textarea" name="content" id="rsvp-content" placeholder="e.g. We are coming to the wedding! We'd both like the fish please, one with the risotto and one with the salad. Can't wait! Simone and Jon"></textarea>
                 <br/>
                 <button id="submit">Submit</button>
                 <br/>
@@ -113,17 +113,39 @@
                     $("#rsvp-error").show();
                 };
 
+                var validate = function(){
+                    var text = $("#rsvp-content").val();
+                    if(!text)
+                    {
+                        highlight("#rsvp-content");
+                        return false
+                    }
+                    return true;
+                };
+
+                var highlight = function(target){
+                    $(target).addClass("red-border");
+                }
+
+                var clearHighlight = function (target) {
+                    $(target).removeClass("red-border");
+                };
+
                 $(document).ready(function (){
+                    $("#rsvp-content").keypress(function(){
+                        clearHighlight("#rsvp-content");
+                    });
                     $("#rsvp").submit(function(e){
                         e.preventDefault();
                         
+                        if(!validate())
+                            return;
+
                         loading();
                         
-                        // setTimeout(function(){
-                        //     failure();
-                        // }, 1000);
                         $.ajax({
                             url: 'https://young-reaches-41764.herokuapp.com/mail',
+                            //url: 'http://localhost:5000/mail',
                             type: 'post',
                             data: $('#rsvp').serialize(),
                             success: success,
