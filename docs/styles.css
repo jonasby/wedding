@@ -1,0 +1,145 @@
+
+/* fonts */
+
+body {   
+    margin-top: 3em;
+    font-family: Lato;
+    font-size: 32px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    text-align: center;
+}
+.heading {
+    font-style: normal;
+    font-size: 78px;
+    letter-spacing: 1px;
+    font-weight: 100;
+    margin: 0.5em;
+}
+h3{
+    font-weight: normal;
+    font-size: 38px;
+}
+p {
+    font-size: 20px;
+}
+.secondary{
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 4px;
+}
+a {
+    color: 000;
+    text-decoration: none;
+    border-bottom: 1px solid #999;
+}
+
+.menu h4{
+    font-family: Lato;
+    font-weight: normal;
+}
+.menu p{
+    font-family: 'Parisienne', cursive;
+    font-size: 24px;
+    margin:0;
+}
+.menu p.little {
+    font-family: Lato;
+    color: #ccc;
+    font-size: 10px;
+    margin-bottom:0.5em;
+}
+
+.prose{
+    text-align: left;
+}
+
+/* boxes */
+
+.slim{
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.box {
+    border: 1px solid #aaa;
+    border-radius: 10px;
+}
+.content {
+    margin: 0 auto;
+    max-width: 950px;
+}
+.content:after{
+    clear:both;
+}
+.gap{
+    min-height: 2em;
+}
+
+/* columns */
+
+.columns:after{
+    clear:both;
+}
+.three-column{
+    width: 33%;
+    margin-right: 0.4em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    float: left;
+    height: 300px;
+}
+.third-column{
+    width: 30%;
+    margin-right: 0px;
+}
+
+/* form */
+
+.textarea {
+    height: 100px;
+    width: 50%;
+    padding: 0.5em;
+    margin-bottom:1em;
+}
+button{
+    background-color: #eee; /* Green */
+    border: none;
+    color: #333;
+    padding: 0.5em 1em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+textarea,button{
+    font-size: 20px;
+    border-radius: 10px;
+    font-family: Lato;
+}
+
+*:focus,textarea:active,textarea:hover,button:hover{
+    /* outline-color: #ccc; */
+    outline: none;
+    box-shadow: 0 0 0 2pt #ccc;
+}
+
+
+/* mobile etc */
+
+@media (max-width: 500px){
+    body{
+        margin-top: 1em;
+    }
+    .box {
+        width: 340px;
+        padding: 10px;
+    }
+    #title p {
+        margin: 0.1em;
+    }
+
+    .three-column,.third-column {
+        float:none;
+        margin: 1em;
+    }
+}
