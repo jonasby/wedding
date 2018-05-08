@@ -10,6 +10,29 @@
         </title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
+    <script>
+        var userLang = navigator.language || navigator.userLanguage;
+        var langClass = userLang.substr(0,2);
+        var toHide = "";
+        ["de", "en"].map(function(item){
+            
+
+            if (item !== langClass)
+                toHide += "." + item;
+        })
+        if (toHide === "")
+            toHide = ".de";
+
+        var sheet = (function() {
+            var style = document.createElement("style");
+            style.appendChild(document.createTextNode(""));
+            document.head.appendChild(style);
+            return style.sheet;
+        })();
+
+        sheet.insertRule(toHide + " { display: none; }");
+
+    </script>
     <body>
         <h1 style="display:none;">
             Simone and Jonathan are getting married!
@@ -43,10 +66,14 @@
         <div class="divider">....</div>
         <div class="content" id="about-the-wedding">
             <h2 id="info">About the Wedding</h2>
-            <p>We would be delighted if you could join us in celebrating our most special day.</p>
-            <p>We promise bubbles, treats and laughter. To help us get ready, please let us know whether you can make it, and tell us your preference for the wedding breakfast. Let us know about any allergies.</p>
-            <p>Please enter your message in the box below the menu choices, and hit the submit button. Your message will find its way to Simone and Jon's inbox. Don't forget to include your selection and your name(s). 
+            <p class="en">We would be delighted if you could join us in celebrating our most special day.</p>
+            <p class="de">Wir freuen uns sehr, unsere Hochzeit mit euch zu feiern.</p>
+            <p class="en">We promise bubbles, treats and laughter. To help us get ready, please let us know whether you can make it, and tell us your preference for the wedding breakfast. Let us know about any allergies.</p>
+            <p class="de">Prickelndes, Schmankerl und Spaß sind versprochen. Damit alles rund läuft, lasst uns bitte wissen, ob ihr kommen könnt und welches Menü ihr wählt. Bitte gebt auch Bescheid, ob Allergien oder Unverträglichkeiten bestehen.</p>
+            <p class="en">Please enter your message in the box below the menu choices, and hit the submit button. Your message will find its way to Simone and Jon's inbox. Don't forget to include your selection and your name(s). 
                 Where there is a slash between two options, please write your choice of one or the other in your message.</p>
+            <p class="de">Zur Qual der Wahl: Einfach die Maske unter der Menüauswahl verwenden, um uns euren Menüwunsch plus euren Namen mitzuteilen. An mancher Stelle kann man innerhalb des Menüs wählen. 
+                Also, auf die Schrägstriche achten. Wir freuen uns schon auf eure Antworten.</p>
             <div class="columns">
                 <div class="three-column menu box">
                     <h4>Meaty</h4>
@@ -182,17 +209,22 @@
 
         <div class="divider">....</div>
         <div class="content" id="extra">
-            <h3>Weather</h3>
-            <p>Whether the weather is warm, whether the weather is hot, we have to put up with the weather, whether we like it or not. We'll be safely under cover or roof in any case! Note that Munich can be very hot in the summer. The restaurant should remain fairly cool throughout.</p>
-            <h3>Drinks</h3>
-            <p>We're delighted that you can join us in celebrating our special day, and we will grease the wheels with beers, wines, and hot and soft drinks throughout the day. Later in the evening the bar will turn over to a cash bar.</p>
-            <h3>Gifts</h3>
-            <p>While the presence of your company is the only gift we could ever ask for, a selection of 'honeymoon experiences' will be available for contribution on the day for those who expressed an interest in offering a gift to mark the occasion.</p>
-            <a class="secondary infolink" data-target="#munich" href="">More</a>
+            <h3 class="en">Weather</h3>
+            <h3 class="de">Wetter</h3>
+            <p class="en">Whether the weather is warm, whether the weather is hot, we have to put up with the weather, whether we like it or not. We'll be safely under cover or roof in any case! Note that Munich can be very hot in the summer. The restaurant should remain fairly cool throughout.</p>
+            <p class="de">Ob es regnet oder die Sonne scheint, wir haben für alle Eventualitäten vorbereitet. Sprich, no matter what, wir feiern!</p>
+            <h3 class="en">Drinks</h3>
+            <h3 class="de">Getränke</h3>
+            <p class="en">We're delighted that you can join us in celebrating our special day, and we will grease the wheels with beers, wines, and hot and soft drinks throughout the day. Later in the evening the bar will turn over to a cash bar.</p>
+            <p class="de">Prosecco, Bier, Wein und alkoholfreie Getränke werden über den Tag hin von uns gestellt. Später am Abend können Getränke an der Bar gekauft werden.</p>
+            <h3 class="en">Gifts</h3>
+            <h3 class="de">Geschenke</h3>
+            <p class="en">While the presence of your company is the only gift we could ever ask for, a selection of 'honeymoon experiences' will be available for contribution on the day for those who expressed an interest in offering a gift to mark the occasion.</p>
+            <p class="de">Euer Kommen ist das schönste Geschenk für uns. Da wir uns sehr glücklich schätzen können, unseren Haushalt schon komplett zu haben, werden wir eine Sparbüchse für unsere Hochzeitsreise bereitstellen, der ihr gerne etwas beisteuern könnt.</p>
+            <a class="secondary infolink en" data-target="#munich" href="">More</a>
         </div>
 
-
-        <div class="gap" id="gap3">
+        <div class="gap en" id="gap3">
         </div>
         <script>
             var windowHeight = window.innerHeight;
@@ -202,8 +234,8 @@
             gapElement.style.height = gapRequired;
         </script>
 
-        <div class="divider">....</div>
-        <div class="content" id="munich">
+        <div class="divider en">....</div>
+        <div class="content en" id="munich">
             <h2 class="heading">Munich</h2>
             <h3>Getting around</h3>
             <div class="prose">
@@ -216,8 +248,7 @@
             </div>
         </div>
 
-
-        <div class="gap" id="gap4">
+        <div class="gap en" id="gap4">
         </div>
         <script>
             var windowHeight = window.innerHeight;
