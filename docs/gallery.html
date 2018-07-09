@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='styles.css' rel='stylesheet' type='text/css'>
+    <style>
+        #gallery img {
+            margin: 4px;
+        }
+        #gallery a {
+            border-bottom: none;
+        }
+    </style>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300|Parisienne' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var width = window.innerWidth;
+            var imageWidth = (width - 50) / 2;
+            $.getJSON("https://young-reaches-41764.herokuapp.com/photo", function(result){
+                
+                urls = result.resources.map(function(item){
+                    var publicId = item.public_id;
+                    var smaller = "https://res.cloudinary.com/dmpxnbkdx/image/upload/c_pad,w_" + imageWidth + "/" + publicId;
+                    var fullSize = "https://res.cloudinary.com/dmpxnbkdx/image/upload/" + publicId;
+
+                    return {
+                        smaller: smaller,
+                        fullSize: fullSize
+                    }
+                });
+
+                allHtml = urls.map(function(item){
+                    return "<a href=\"" + item.fullSize + "\"><img src=\"" + item.smaller + "\" title=\"Bring Jon More Booze\"/></a>"
+                });
+
+                $("#gallery").html(allHtml);
+            });
+        });
+    </script>
+</head>
+
+<body style="padding:0; margin-top: 0.5em;">
+    <h1 class="heading">Pics!</h1>
+    <p>
+        <a href="photo.html" class="secondary">Send Photos</a>
+    </p>
+    <div id="gallery"></div>
+</body>
+
+</html>
