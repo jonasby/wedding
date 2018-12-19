@@ -5,48 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='styles.css' rel='stylesheet' type='text/css'>
     <style>
+        .flex-container {
+            display: flex;
+            flex-wrap: nowrap;
+            text-align: center;
+        }
         #gallery img {
             margin: 4px;
         }
         #gallery a {
             border-bottom: none;
         }
+        #gallery .category {
+            width: 100%;
+        }
     </style>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300|Parisienne' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             var width = window.innerWidth;
-            var imageWidth = (width - 50) / 2;
-            $.getJSON("https://young-reaches-41764.herokuapp.com/photo", function(result){
-                
-                urls = result.resources.map(function(item){
-                    var publicId = item.public_id;
-                    var smaller = "https://res.cloudinary.com/dmpxnbkdx/image/upload/c_pad,w_" + imageWidth + "/" + publicId;
-                    var fullSize = "https://res.cloudinary.com/dmpxnbkdx/image/upload/" + publicId;
+            var margin = 0.2 * width;
+            var third = (width - margin) / 3.33;
+            var imageWidth = third.toFixed(0);
 
-                    return {
-                        smaller: smaller,
-                        fullSize: fullSize
-                    }
-                });
+            images = [
+                {
+                    public_id: "1. Build Up/DSC_1429",
+                    name: "Build up"
+                }, {
+                    public_id: "2. Ceremony/DSC_1653",
+                    name: "Ceremony"
+                }, {
+                    public_id: "3. Reception/DSC_1930",
+                    name: "Reception"
+                }, {
+                    public_id: "4. Foods/DSC_2335",
+                    name: "Dinner"
+                }, {
+                    public_id: "5. Party/DSC_2404",
+                    name: "Park"
+                }, {
+                    public_id: "6. Dance/DSC_2670",
+                    name: "Dancing"
+                }, {
+                    public_id: "Taken by Guests/phmpiqkknsxjcsjygrpf", // cake tower
+                    name: "Guest Photos"
+                }
+            ];
 
-                allHtml = urls.map(function(item){
-                    return "<a href=\"" + item.fullSize + "\"><img src=\"" + item.smaller + "\" title=\"Bring Jon More Booze\"/></a>"
-                });
+            urls = images.map(function(item){
+                var publicId = item.public_id;
+                var smaller = "https://res.cloudinary.com/dmpxnbkdx/image/upload/c_pad,w_" + imageWidth + "/" + publicId;
+                var link = "subgallery.html?category=" + publicId.split("/")[0];
 
-                $("#gallery").html(allHtml);
+                return {
+                    smaller: smaller,
+                    link: link,
+                    name: item.name,
+                    width: imageWidth
+                }
             });
+            every3 = 0;
+            imageHtml = urls.map(function(item){
+                return "<div class=\"category\"><a href=\"" + item.link + "\"><p>" + item.name + "</p><img src=\"" + item.smaller + "\"/></a></div>"
+            });
+
+            var flex = "<div class=\"flex-container\">";
+            var agg = flex;
+            var counter = 0;
+            imageHtml.map(function(item){
+                counter++;
+                agg += item;
+                if(counter % 3 == 0) {
+                    agg += "</div>";
+                    if (counter != imageHtml.length){
+                        agg+= flex;
+                    }
+                }
+            });
+
+            $("#gallery").html(agg);
         });
     </script>
 </head>
 
 <body style="padding:0; margin-top: 0.5em;">
     <h1 class="heading">Pics!</h1>
-    <p>
-        <a href="photo.html" class="secondary">Send Photos</a>
-    </p>
     <div id="gallery"></div>
 </body>
 
