@@ -96,7 +96,7 @@
             </div>")
             new ClipboardJS('.hidden-button', {
                 text: function(trigger) {
-                    var src = $(".lb-image").attr("src").replace(/w_(\d+)/, "w_1200");
+                    var src = $(".lb-image").attr("src").replace(/w_(\d+)/, "w_1200").replace(/ /g, "%20");
                     $(".copy-tooltip").show(0, function(el) {
                         $(".copy-tooltip").fadeOut(2000);
                     });
