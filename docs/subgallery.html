@@ -29,6 +29,9 @@
         .lb-details {
             display: flex;
         }
+        .copy-container img {
+            opacity: 0.7;
+        }
     </style>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300|Parisienne' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -91,6 +94,7 @@
             if (ClipboardJS.isSupported() === false)
                 return;
             $(".lb-details").append("<div class=\"copy-container\">\
+            <img src=\"full.png\" title=\"big version\" onclick=\"launchTab()\"/>\
             <img src=\"copy.png\" title=\"copy image link\" onclick=\"$('.hidden-button').click()\"/>\
             <span style=\"display: none;\" class=\"copy-tooltip\">link copied</span>\
             </div>")
@@ -103,6 +107,11 @@
                     return src;
                 }
             });
+        }
+
+        function launchTab (){
+            var src = $(".lb-image").attr("src").replace(/w_(\d+)/, "w_1200").replace(/ /g, "%20");
+            window.open(src, "new");
         }
     </script>
 </head>
