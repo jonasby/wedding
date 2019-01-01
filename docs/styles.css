@@ -161,6 +161,13 @@ button.error{
     border-color: #800000;
 }
 
+.little-link {
+    font-size: 0.4em;
+    top: 1em;
+    left: 1em;
+    position: absolute;
+}
+
 
 /* mobile etc */
 

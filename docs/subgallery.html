@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='styles.css' rel='stylesheet' type='text/css'>
+    <link href="lightbox2-master/dist/css/lightbox.min.css" rel="stylesheet">
     <style>
         #gallery img {
             margin: 4px;
@@ -14,7 +15,14 @@
     </style>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300|Parisienne' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="lightbox2-master/dist/js/lightbox.min.js"></script>
     <script type="text/javascript">
+        
+        lightbox.option({
+            resizeDuration: 100,
+            positionFromTop: 20,
+            resizeDuration: 200
+        });
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, '\\$&');
@@ -28,14 +36,18 @@
         $(function () {
             var filter = getParameterByName("category");
             var width = window.innerWidth;
-            var imageWidth = (width - 50) / 2;
+            var halfWidth = (width - 50) / 2;
+            halfWidth = Math.floor(halfWidth / 10) * 10; // round to nearest 10px
+            var lightboxPadding = 27;
+            var targetWidth = width > 1200 ? 1200 : Math.floor(width / 10) * 10;
+            var transformWidth = targetWidth - lightboxPadding
             $.getJSON("https://young-reaches-41764.herokuapp.com/photo?category=" + filter, function(result){
             //$.getJSON("http://localhost:5000/photo?category=" + filter, function(result){
 
                 urls = result.map(function(item){
                     var publicId = item.public_id;
-                    var smaller = "https://res.cloudinary.com/dmpxnbkdx/image/upload/c_pad,w_" + imageWidth + "/" + publicId;
-                    var fullSize = "https://res.cloudinary.com/dmpxnbkdx/image/upload/" + publicId;
+                    var smaller = "https://res.cloudinary.com/dmpxnbkdx/image/upload/c_pad,w_" + halfWidth + "/" + publicId;
+                    var fullSize = "https://res.cloudinary.com/dmpxnbkdx/image/upload/c_pad,w_" + transformWidth + "/" + publicId;
 
                     return {
                         smaller: smaller,
@@ -44,7 +56,7 @@
                 });
 
                 allHtml = urls.map(function(item){
-                    return "<a href=\"" + item.fullSize + "\"><img src=\"" + item.smaller + "\"/></a>"
+                    return "<a href=\"" + item.fullSize + "\" data-lightbox=\"roadtrip\"><img src=\"" + item.smaller + "\"/></a>"
                 });
 
                 $("#gallery").html(allHtml);
@@ -54,6 +66,7 @@
 </head>
 
 <body style="padding:0; margin-top: 0.5em;">
+    <a class="little-link left" href="gallery.html">&lt; Back</a>
     <h1 class="heading">Pics!</h1>
     <div id="gallery"></div>
 </body>
