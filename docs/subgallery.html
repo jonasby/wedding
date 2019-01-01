@@ -9,13 +9,28 @@
         #gallery img {
             margin: 4px;
         }
-        #gallery a {
+        #gallery a, #lightbox a {
             border-bottom: none;
+        }
+        .copy-container {
+            float: left;
+            margin-left: 5px;
+        }
+        .copy-tooltip {
+            font-size: 14px;
+        }
+        .lb-data .lb-number {
+            color: #ccc;
+            font-size: 20px;
+        }
+        .lb-details {
+            display: flex;
         }
     </style>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300|Parisienne' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="lightbox2-master/dist/js/lightbox.min.js"></script>
+    <script src="clipboard/clipboard.min.js"></script>
     <script type="text/javascript">
         
         lightbox.option({
@@ -56,19 +71,44 @@
                 });
 
                 allHtml = urls.map(function(item){
-                    return "<a href=\"" + item.fullSize + "\" data-lightbox=\"roadtrip\"><img src=\"" + item.smaller + "\"/></a>"
+                    return "<a href=\"" 
+                        + item.fullSize 
+                        + "\" data-lightbox=\"wedding\"><img src=\""
+                        + item.smaller 
+                        + "\"/></a>"
                 });
 
                 $("#gallery").html(allHtml);
+
+                initializeSharing();
             });
         });
+
+        function initializeSharing () {
+            if (ClipboardJS.isSupported() === false)
+                return;
+            $(".lb-details").append("<div class=\"copy-container\">\
+            <img src=\"copy.png\" title=\"copy image link\" onclick=\"$('.hidden-button').click()\"/>\
+            <span style=\"display: none;\" class=\"copy-tooltip\">link copied</span>\
+            </div>")
+            new ClipboardJS('.hidden-button', {
+                text: function(trigger) {
+                    var src = $(".lb-image").attr("src").replace(/w_(\d+)/, "w_1200");
+                    $(".copy-tooltip").show(0, function(el) {
+                        $(".copy-tooltip").fadeOut(2000);
+                    });
+                    return src;
+                }
+            });
+        }
     </script>
 </head>
 
 <body style="padding:0; margin-top: 0.5em;">
-    <a class="little-link left" href="gallery.html">&lt; Back</a>
+    <a class="little-link" href="gallery.html">&lt; Back</a>
     <h1 class="heading">Pics!</h1>
     <div id="gallery"></div>
+    <button class="hidden-button" style="display: none;"></button>
 </body>
 
 </html>
